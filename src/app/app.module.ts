@@ -1,3 +1,4 @@
+import { AuthService } from "./../services/auth.service";
 import { ErrorInterceptorProvider } from "./../interceptors/error-interceptor";
 import { CategoriaService } from "./../services/domain/categoria.service";
 import { ErrorHandler, NgModule } from "@angular/core";
@@ -19,6 +20,7 @@ import { MyApp } from "./app.component";
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CategoriaService,
     ErrorInterceptorProvider,
+    AuthService,
   ],
 })
 export class AppModule {}
