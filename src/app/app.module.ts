@@ -1,3 +1,4 @@
+import { StorageService } from "./../services/storage.service";
 import { AuthService } from "./../services/auth.service";
 import { ErrorInterceptorProvider } from "./../interceptors/error-interceptor";
 import { CategoriaService } from "./../services/domain/categoria.service";
@@ -21,6 +22,7 @@ import { MyApp } from "./app.component";
     CategoriaService,
     ErrorInterceptorProvider,
     AuthService,
+    StorageService,
   ],
 })
 export class AppModule {}
