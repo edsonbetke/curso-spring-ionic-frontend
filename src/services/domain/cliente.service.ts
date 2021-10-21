@@ -10,13 +10,10 @@ export class ClienteService {
   constructor(public http: HttpClient, public storage: StorageService) {}
 
   findByEmail(email: string): Observable<ClienteDTO> {
-    // aqui vamos montar o Header pegando o token e adicionando a palavra Bearer a ele e depois enviar
-    let token = this.storage.getLocalUser().token;
-    let authHeader = new HttpHeaders({ Authorization: "Bearer " + token });
+    // com o interceptor não é necessario mais pegar o token e passar o headers
 
     return this.http.get<ClienteDTO>(
-      `${API_CONFIG.baseUrl}/clientes/email?value=${email}`,
-      { headers: authHeader }
+      `${API_CONFIG.baseUrl}/clientes/email?value=${email}`
     );
   }
 
