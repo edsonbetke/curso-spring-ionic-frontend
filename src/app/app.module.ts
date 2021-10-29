@@ -1,3 +1,4 @@
+import { CartService } from "./../services/domain/cart.service";
 import { ProdutoService } from "./../services/domain/produto.service";
 import { AuthInterceptorProvider } from "./../interceptors/auth-interceptor";
 import { HttpClientModule } from "@angular/common/http";
@@ -29,6 +30,7 @@ import { MyApp } from "./app.component";
     StorageService,
     ClienteService,
     ProdutoService,
+    CartService,
   ],
 })
 export class AppModule {}
