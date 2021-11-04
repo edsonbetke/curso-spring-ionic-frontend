@@ -15,6 +15,12 @@ export class ClienteService {
     return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
   }
 
+  findById(id: string) {
+    // com o interceptor não é necessario mais pegar o token e passar o headers
+
+    return this.http.get(`${API_CONFIG.baseUrl}/clientes/${id}`);
+  }
+
   getImageFromBucket(id: string): Observable<any> {
     //busca a imagem no bucket pelo id
     let url = `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`;
