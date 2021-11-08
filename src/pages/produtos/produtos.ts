@@ -22,7 +22,8 @@ import {
   templateUrl: "produtos.html",
 })
 export class ProdutosPage {
-  items: ProdutoDTO[];
+  items: ProdutoDTO[] = [];
+  page: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -39,12 +40,16 @@ export class ProdutosPage {
     let categoria_id = this.navParams.get("categoria_id");
     //faz a chamada do loading
     let loader = this.presentLoading();
-    this.produtoService.findByCategoria(categoria_id).subscribe(
+    this.produtoService.findByCategoria(categoria_id, this.page, 10).subscribe(
       (response) => {
-        this.items = response["content"];
+        let start = this.items.length;
+        this.items = this.items.concat(response["content"]);
+        let end = this.items.length - 1;
+        console.log(this.page);
+        console.log(this.items);
         //encerra a janela do loading
         loader.dismiss();
-        this.loadImageUrls();
+        this.loadImageUrls(start, end);
       },
       (error) => {
         loader.dismiss();
@@ -52,8 +57,8 @@ export class ProdutosPage {
     );
   }
 
-  loadImageUrls() {
-    for (var i = 0; i < this.items.length; i++) {
+  loadImageUrls(start: number, end: number) {
+    for (var i = start; i < end; i++) {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.id).subscribe(
         (response) => {
@@ -77,11 +82,22 @@ export class ProdutosPage {
   }
 
   doRefresh(refresher) {
+    //tem q zerar o page e fazer uma lista vazia no items para que não fique atualizando eles e deixe a pagina gigante
+    this.page = 0;
+    this.items = [];
     //recarrega os dados
     this.loadData();
     //Apos 1000 milisegundo fecha a janela
     setTimeout(() => {
       refresher.complete();
+    }, 1000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
     }, 1000);
   }
 }
