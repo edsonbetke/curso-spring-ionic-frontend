@@ -13,6 +13,7 @@ import { CategoriaService } from "./../services/domain/categoria.service";
 import { ClienteService } from "./../services/domain/cliente.service";
 import { StorageService } from "./../services/storage.service";
 import { MyApp } from "./app.component";
+import { ImageUtilService } from "../services/image-util.service";
 
 @NgModule({
   declarations: [MyApp],
@@ -31,6 +32,7 @@ import { MyApp } from "./app.component";
     ClienteService,
     ProdutoService,
     CartService,
+    ImageUtilService,
   ],
 })
 export class AppModule {}
